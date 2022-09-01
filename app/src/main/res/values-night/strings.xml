@@ -1,6 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DogsApp</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="content_description_circle_photo">random dog photo</string>
     <string name="welcome_message">We are glad that you like dogs!</string>
     <string name="example_quote">Every time you are tempted to react in the same old way, ask if you want to be a prisoner of the past or a pioneer of the future.</string>
