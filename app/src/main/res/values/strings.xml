@@ -4,4 +4,6 @@
     <string name="content_description_circle_photo">random dog photo</string>
     <string name="welcome_message">We are glad that you like dogs!</string>
     <string name="example_quote">Every time you are tempted to react in the same old way, ask if you want to be a prisoner of the past or a pioneer of the future.</string>
+    <string name="breedsText">List of breeds</string>
+    <string name="quotesList">List of quotes</string>
 </resources>

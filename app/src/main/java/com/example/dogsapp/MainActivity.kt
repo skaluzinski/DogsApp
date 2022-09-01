@@ -2,7 +2,7 @@ package com.example.dogsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.dogsapp.ui.start.startFragment
+import com.example.dogsapp.ui.start.StartFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, startFragment.newInstance())
+                .replace(R.id.container, StartFragment.newInstance())
                 .commitNow()
         }
     }
