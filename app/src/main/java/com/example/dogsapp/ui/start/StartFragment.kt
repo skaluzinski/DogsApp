@@ -10,9 +10,6 @@ import com.example.dogsapp.databinding.FragmentStartBinding
 
 class StartFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = StartFragment()
-    }
     private var binding: FragmentStartBinding? =null
     private lateinit var viewModel: StartViewModel
 

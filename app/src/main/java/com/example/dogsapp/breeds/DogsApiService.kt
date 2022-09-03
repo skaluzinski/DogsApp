@@ -1,4 +1,4 @@
-package com.example.dogsapp.network.photos
+package com.example.dogsapp.breeds
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

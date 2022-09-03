@@ -8,5 +8,6 @@
         android:id="@+id/startFragment"
         android:name="com.example.dogsapp.ui.start.StartFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" />
+        tools:layout="@layout/fragment_start" >
+    </fragment>
 </navigation>
