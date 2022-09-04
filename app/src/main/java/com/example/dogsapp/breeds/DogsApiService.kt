@@ -20,25 +20,25 @@ private val retrofit = Retrofit.Builder()
 
 interface DogsApiService {
     @GET("breeds/list/all")
-    suspend fun getBreedsList(): BreedList
+    suspend fun getBreedsList(): BreedsList
 
     @GET("breed/{breed}/images/random/{amount}")
     suspend fun getBreedPhotos(
         @Path("breed") breedName: String,
         @Path("amount") amountOfPhotos: Int = 1
-    ): DogsPhoto
+    ): OneRacePhotos
 
 
     @GET("breed/{breed}/images")
     suspend fun getMainBreedAllPhotos(
         @Path("breed") breedName: String
-    ): DogsPhoto
+    ): OneRacePhotos
 
     @GET("breed/{breed}/{subBreed}/images/")
     suspend fun getSubBreedAllPhotos(
         @Path("breed") breedName: String,
         @Path("subBreed") subBreedName: String
-    ): DogsPhoto
+    ): OneRacePhotos
 }
 
 object DogsApi {

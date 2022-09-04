@@ -7,14 +7,14 @@
 
         <variable
             name="startFragment"
-            type="com.example.dogsapp.ui.start.StartFragment" />
+            type="com.example.dogsapp.mainMenu.StartFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/start"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.start.StartFragment">
+        tools:context=".mainMenu.StartFragment">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/photoCircle"
@@ -152,6 +152,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="SpeakableTextPresentCheck"
+                        android:onClick="@{() -> startFragment.navigateToQuote()}"
                         android:contentDescription="@string/content_description_circle_photo" />
 
                     <TextView

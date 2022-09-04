@@ -1,23 +1,25 @@
-package com.example.dogsapp.ui.start
+package com.example.dogsapp.mainMenu
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.dogsapp.databinding.FragmentStartBinding
+import androidx.navigation.fragment.findNavController
+import com.example.dogsapp.R
+import com.example.dogsapp.databinding.StartFragmentBinding
+
 
 class StartFragment : Fragment() {
 
-    private var binding: FragmentStartBinding? =null
+    private var binding: StartFragmentBinding? = null
     private lateinit var viewModel: StartViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragmentBinding = FragmentStartBinding.inflate(layoutInflater,container,false)
+        val fragmentBinding = StartFragmentBinding.inflate(layoutInflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
     }
@@ -29,7 +31,16 @@ class StartFragment : Fragment() {
             startFragment = this@StartFragment
         }
     }
-    fun navigateToBreeds(){
-        Log.d("nav","nav")
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
+    fun navigateToBreeds() {
+        findNavController().navigate(R.id.action_startFragment_to_breedsListFragment)
+    }
+    fun navigateToQuote(){
+        findNavController().navigate(R.id.action_startFragment_to_quoteMenuFragment)
     }
 }

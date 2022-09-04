@@ -1,8 +1,12 @@
+
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
 }
+
 
 android {
     compileSdk 32
@@ -46,6 +50,7 @@ dependencies {
 
     //circular image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     def nav_version = "2.5.1"
 
