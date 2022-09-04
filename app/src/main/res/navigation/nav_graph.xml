@@ -6,7 +6,37 @@
     app:startDestination="@id/startFragment">
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.example.dogsapp.ui.start.StartFragment"
+        android:name="com.example.dogsapp.mainMenu.StartFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" />
+        tools:layout="@layout/start_fragment" >
+        <action
+            android:id="@+id/action_startFragment_to_breedsListFragment"
+            app:destination="@id/breedsListFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_quoteMenuFragment"
+            app:destination="@id/quoteMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/breedPhotos"
+        android:name="com.example.dogsapp.breeds.BreedPhotos"
+        android:label="fragment_breed_photos"
+        tools:layout="@layout/breed_photos_fragment" >
+        <argument
+            android:name="breed"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/breedsListFragment"
+        android:name="com.example.dogsapp.breeds.BreedsListFragment"
+        android:label="fragment_breeds_list"
+        tools:layout="@layout/breeds_list_fragment" >
+        <action
+            android:id="@+id/action_breedsListFragment_to_breedPhotos"
+            app:destination="@id/breedPhotos" />
+    </fragment>
+    <fragment
+        android:id="@+id/quoteMenuFragment"
+        android:name="com.example.dogsapp.quotes.QuoteMenuFragment"
+        android:label="fragment_quote_menu"
+        tools:layout="@layout/quote_menu_fragment" />
 </navigation>

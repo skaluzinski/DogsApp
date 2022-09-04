@@ -1,8 +1,8 @@
-package com.example.dogsapp.network.photos
+package com.example.dogsapp.breeds
 
 import com.squareup.moshi.Json
 
-data class DogsPhoto(
+data class OneRacePhotos(
     @Json(name = "message")
     val photos: List<String>,
 

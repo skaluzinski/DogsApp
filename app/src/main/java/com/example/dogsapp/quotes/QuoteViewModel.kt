@@ -1,7 +1,7 @@
-package com.example.dogsapp.ui.start
+package com.example.dogsapp.quotes
 
 import androidx.lifecycle.ViewModel
 
-class StartViewModel : ViewModel() {
+class QuoteViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
