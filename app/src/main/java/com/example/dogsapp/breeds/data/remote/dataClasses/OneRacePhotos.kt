@@ -1,4 +1,4 @@
-package com.example.dogsapp.breeds
+package com.example.dogsapp.breeds.data.remote.dataClasses
 
 import com.squareup.moshi.Json
 

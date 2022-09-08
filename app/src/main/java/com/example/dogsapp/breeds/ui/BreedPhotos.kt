@@ -1,4 +1,4 @@
-package com.example.dogsapp.breeds
+package com.example.dogsapp.breeds.ui
 
 import androidx.fragment.app.Fragment
 
