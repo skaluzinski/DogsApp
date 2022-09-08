@@ -1,14 +1,14 @@
-package com.example.dogsapp.breeds
+package com.example.dogsapp.breeds.ui
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.dogsapp.breeds.DogsViewModel
 import com.example.dogsapp.databinding.BreedsListFragmentBinding
 
 
@@ -32,8 +32,7 @@ class BreedsListFragment : Fragment() {
     }
 
     fun navigateToBreedPhotos() {
-        val action = BreedsListFragmentDirections
-            .actionBreedsListFragmentToBreedPhotos("it works")
+        val action = BreedsListFragmentDirections.actionBreedsListFragmentToBreedPhotos("it works!")
         findNavController().navigate(action)
     }
 

@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/breedPhotos"
-        android:name="com.example.dogsapp.breeds.BreedPhotos"
+        android:name="com.example.dogsapp.breeds.ui.BreedPhotos"
         android:label="fragment_breed_photos"
         tools:layout="@layout/breed_photos_fragment" >
         <argument
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/breedsListFragment"
-        android:name="com.example.dogsapp.breeds.BreedsListFragment"
+        android:name="com.example.dogsapp.breeds.ui.BreedsListFragment"
         android:label="fragment_breeds_list"
         tools:layout="@layout/breeds_list_fragment" >
         <action
