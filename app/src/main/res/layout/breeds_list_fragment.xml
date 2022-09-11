@@ -13,18 +13,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_margin="8dp"
         android:layout_height="match_parent"
+        android:layout_margin="8dp"
         tools:context="com.example.dogsapp.breeds.ui.BreedsListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/breedsListRv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:listData="@{viewModel.photos}"
+            app:spanCount="2"
+            android:padding="8dp"
+            tools:itemCount="16"
+            tools:listitem="@layout/recycler_view_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
