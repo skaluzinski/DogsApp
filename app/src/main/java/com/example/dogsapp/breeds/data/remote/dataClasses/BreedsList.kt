@@ -1,6 +1,5 @@
 package com.example.dogsapp.breeds.data.remote.dataClasses
 
-import com.example.dogsapp.breeds.data.remote.dataClasses.Breed
 import com.squareup.moshi.Json
 
 data class BreedsList(

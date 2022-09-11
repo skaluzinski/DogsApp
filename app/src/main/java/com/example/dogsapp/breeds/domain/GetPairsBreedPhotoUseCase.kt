@@ -1,27 +1,30 @@
-package com.example.dogsapp.breeds.domain.repository
+package com.example.dogsapp.breeds.domain
 
+import android.util.Log
 import com.example.dogsapp.breeds.data.remote.IDogsRepository
 import com.example.dogsapp.breeds.data.remote.IPhotosRepository
-import com.example.dogsapp.breeds.data.remote.PhotosRepository
+import com.example.dogsapp.breeds.data.remote.dataClasses.DogPhoto
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class GetBreedsWithAllPhotosUseCase @Inject constructor(
+class GetPairsBreedPhotoUseCase @Inject constructor(
     private val dogsRepository: IDogsRepository,
     private val photosRepository: IPhotosRepository,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
-) : IGetBreedsWithAllPhotosUseCase{
-    override suspend fun execute(): Map<String, List<String>> =
+    private val defaultDispatcher: CoroutineDispatcher
+) : IGetPairsBreedPhotoUseCase {
+    override suspend fun execute(): List<DogPhoto> =
         withContext(defaultDispatcher) {
-            val pairs = mutableMapOf<String, List<String>>()
+            val pairs = mutableListOf<DogPhoto>()
             val breeds = dogsRepository.fetchAllBreeds()
             breeds.forEach { (mainBreed, subBreed) ->
-                val photos = photosRepository.fetchAllPhotosOfBreed(mainBreed, subBreed).photos
                 val name = if (subBreed.isNullOrEmpty()) mainBreed else "$mainBreed-$subBreed"
-                pairs[name] = photos
+                val photo =
+                    photosRepository
+                        .fetchSinglePhotoOfBreed(mainBreed, subBreed)
+                        .photos[0]
+                pairs.add(DogPhoto(name, photo))
             }
             pairs
         }

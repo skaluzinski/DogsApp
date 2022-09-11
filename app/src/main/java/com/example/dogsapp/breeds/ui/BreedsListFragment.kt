@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.dogsapp.breeds.DogsViewModel
 import com.example.dogsapp.databinding.BreedsListFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class BreedsListFragment : Fragment() {
-    private val sharedViewModel: DogsViewModel by activityViewModels()
+    private val sharedViewModel: DogsViewModel by viewModels()
     private var binding: BreedsListFragmentBinding? = null
 
     override fun onCreateView(
@@ -21,7 +23,10 @@ class BreedsListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragmentBinding = BreedsListFragmentBinding.inflate(inflater, container, false)
+        val fragmentBinding = BreedsListFragmentBinding.inflate(inflater)
+        fragmentBinding.lifecycleOwner = this
+        fragmentBinding.viewModel = sharedViewModel
+        fragmentBinding.breedsListRv.adapter = BreedsListAdapter()
         binding = fragmentBinding
         return fragmentBinding.root
     }

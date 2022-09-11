@@ -2,10 +2,10 @@ package com.example.dogsapp.breeds.di
 
 
 import com.example.dogsapp.breeds.data.remote.*
-import com.example.dogsapp.breeds.domain.repository.GetBreedsWithAllPhotosUseCase
-import com.example.dogsapp.breeds.domain.repository.GetPairsBreedPhotoUseCase
-import com.example.dogsapp.breeds.domain.repository.IGetBreedsWithAllPhotosUseCase
-import com.example.dogsapp.breeds.domain.repository.IGetPairsBreedPhotoUseCase
+import com.example.dogsapp.breeds.domain.GetBreedsWithAllPhotosUseCase
+import com.example.dogsapp.breeds.domain.GetPairsBreedPhotoUseCase
+import com.example.dogsapp.breeds.domain.IGetBreedsWithAllPhotosUseCase
+import com.example.dogsapp.breeds.domain.IGetPairsBreedPhotoUseCase
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -15,7 +15,6 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 private const val BASE_URL = "https://dog.ceo/api/"
