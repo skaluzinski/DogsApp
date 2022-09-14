@@ -56,9 +56,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDogsWithAllPhotosUseCase(
-        dogsRepository: IDogsRepository,
-        photosRepository: IPhotosRepository,
-        @IoDispatcher defaultDispatcher: CoroutineDispatcher
+        photosRepository: IPhotosRepository
 
     ): IGetBreedWithAllPhotosUseCase {
         return GetBreedWithAllPhotosUseCase(photosRepository)

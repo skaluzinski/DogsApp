@@ -2,10 +2,8 @@ package com.example.dogsapp.dogs.ui
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.databinding.adapters.ViewBindingAdapter.setOnLongClickListener
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -36,8 +34,6 @@ class BreedsListAdapter(
             }
             loadImage(binding.breedPhoto, dogsPhoto.link)
             binding.breedName.text = dogsPhoto.breed
-//            binding.photo = dogsPhoto
-//            binding.executePendingBindings()
         }
 
     }
@@ -67,7 +63,6 @@ class BreedsListAdapter(
             onItemClicked(getItem(position))
         }
         viewHolder.itemView.setOnLongClickListener {
-            Log.d("ss", "11")
             true
         }
         return viewHolder
@@ -79,10 +74,12 @@ class BreedsListAdapter(
     }
 
 }
-fun loadImage(imageView: ImageView,url: String){
+
+fun loadImage(imageView: ImageView, url: String) {
     Glide
         .with(imageView.context)
         .load(url)
+        .fitCenter()
         .placeholder(R.drawable.loading_animation)
         .error(R.drawable.ic_connection_error)
         .into(imageView)

@@ -2,12 +2,15 @@ package com.example.dogsapp.dogs.ui
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +19,7 @@ import com.example.dogsapp.dogs.DogsViewModel
 import com.example.dogsapp.databinding.BreedsListFragmentBinding
 import com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -33,8 +37,6 @@ class BreedsListFragment : Fragment() {
     ): View {
         val fragmentBinding = BreedsListFragmentBinding.inflate(inflater, container, false)
         fragmentBinding.lifecycleOwner = viewLifecycleOwner
-//        fragmentBinding.viewModel = sharedViewModel
-//        fragmentBinding.breedsListRv.adapter = BreedsListAdapter()
 
         _binding = fragmentBinding
         return fragmentBinding.root
@@ -44,7 +46,7 @@ class BreedsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = sharedViewModel
         recyclerView = binding.breedsListRv
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 4)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
 
         val breedsListAdapter = BreedsListAdapter(
             {
@@ -57,16 +59,14 @@ class BreedsListFragment : Fragment() {
         val newList = mutableListOf<DogPhoto>()
         recyclerView.adapter = breedsListAdapter
         lifecycle.coroutineScope.launch {
-            sharedViewModel.dogPhotoPairs().collect() {
-                newList.add(it)
-                breedsListAdapter.submitList(newList)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                sharedViewModel.dogPhotoPairs().collect() {
+                    newList.add(it)
+
+                    breedsListAdapter.submitList(newList.toList())
+                }
             }
         }
-    }
-
-    fun navigateToBreedPhotos() {
-        val action = BreedsListFragmentDirections.actionBreedsListFragmentToBreedPhotos("it works!")
-        findNavController().navigate(action)
     }
 
     override fun onDestroy() {
