@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         tools:context=".mainMenu.StartFragment">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/photoCircle"
             android:layout_width="196dp"
             android:layout_height="196dp"

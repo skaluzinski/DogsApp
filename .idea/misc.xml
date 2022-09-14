@@ -24,6 +24,9 @@
         <entry key="app/src/main/res/layout/fragment_quote_menu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.3244176013805004" />
         <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.1109375" />
+        <entry key="app/src/main/res/layout/single_breed_item.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/layout/single_breed_photos_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/start_fragment.xml" value="0.25" />
       </map>
     </option>
   </component>

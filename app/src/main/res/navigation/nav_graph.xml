@@ -18,16 +18,16 @@
     </fragment>
     <fragment
         android:id="@+id/breedPhotos"
-        android:name="com.example.dogsapp.breeds.ui.BreedPhotos"
+        android:name="com.example.dogsapp.dogs.ui.SingleBreedPhotos"
         android:label="fragment_breed_photos"
-        tools:layout="@layout/breed_photos_fragment" >
+        tools:layout="@layout/single_breed_photos_fragment" >
         <argument
             android:name="breed"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/breedsListFragment"
-        android:name="com.example.dogsapp.breeds.ui.BreedsListFragment"
+        android:name="com.example.dogsapp.dogs.ui.BreedsListFragment"
         android:label="fragment_breeds_list"
         tools:layout="@layout/breeds_list_fragment" >
         <action

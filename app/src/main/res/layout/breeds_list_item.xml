@@ -7,7 +7,7 @@
 
         <variable
             name="photo"
-            type="com.example.dogsapp.breeds.data.remote.dataClasses.DogPhoto" />
+            type="com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:adjustViewBounds="false"
             android:padding="2dp"
             android:scaleType="fitXY"
-            app:imageUrl="@{photo.link.toString()}"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,6 @@
             android:id="@+id/breedName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{photo.breed}"
             app:layout_constraintBottom_toTopOf="@+id/breedPhoto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
