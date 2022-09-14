@@ -16,12 +16,10 @@ class SingleBreedAdapter :
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<String>() {
             override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-                Log.d("Link", "link")
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-                Log.d("Link", "link")
                 return oldItem == newItem
             }
 
@@ -32,7 +30,6 @@ class SingleBreedAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(link: String) {
-            Log.d("Link", link)
             loadImage(binding.photo, link)
         }
 
@@ -46,7 +43,6 @@ class SingleBreedAdapter :
                 false
             )
         )
-        Log.d("Link", "link")
         viewHolder.itemView.setOnLongClickListener {
             return@setOnLongClickListener true
         }
@@ -54,7 +50,6 @@ class SingleBreedAdapter :
     }
 
     override fun onBindViewHolder(holder: SingleBreedViewHolder, position: Int) {
-        Log.d("download", "bind")
         holder.bind(getItem(position))
     }
 }
