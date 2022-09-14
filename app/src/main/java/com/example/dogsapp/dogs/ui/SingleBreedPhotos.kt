@@ -1,13 +1,18 @@
 package com.example.dogsapp.dogs.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogsapp.databinding.SingleBreedPhotosFragmentBinding
 import com.example.dogsapp.dogs.DogsViewModel
@@ -48,18 +53,22 @@ class SingleBreedPhotos : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = sharedViewModel
         recyclerView = binding.breedPhotosRv
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val singleBreedAdapter = SingleBreedAdapter()
         recyclerView.adapter = singleBreedAdapter
         lifecycle.coroutineScope.launch {
-            sharedViewModel.dogBreedPhotos(breedName).collect() {
-                singleBreedAdapter.submitList(it)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                sharedViewModel.dogBreedPhotos(breedName).collect() {
+                    singleBreedAdapter.submitList(it)
+                }
             }
+
         }
-
-
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
