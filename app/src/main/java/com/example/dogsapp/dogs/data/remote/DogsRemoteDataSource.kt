@@ -1,6 +1,7 @@
 package com.example.dogsapp.dogs.data.remote
 
 import com.example.dogsapp.dogs.data.remote.dataClasses.OneRacePhotos
+import com.example.dogsapp.dogs.data.remote.dataClasses.SingleDogResponse
 import com.example.dogsapp.dogs.di.DefaultDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -38,7 +39,7 @@ class DogsRemoteDataSource @Inject constructor(
             }
         }
 
-    override suspend fun fetchRandomPhoto(): OneRacePhotos = withContext(defaultDispatcher) {
+    override suspend fun fetchRandomPhoto(): SingleDogResponse = withContext(defaultDispatcher) {
         dogsApi.getRandomPhoto()
     }
 }

@@ -2,6 +2,7 @@ package com.example.dogsapp.dogs.data.remote
 
 import com.example.dogsapp.dogs.data.remote.dataClasses.BreedsList
 import com.example.dogsapp.dogs.data.remote.dataClasses.OneRacePhotos
+import com.example.dogsapp.dogs.data.remote.dataClasses.SingleDogResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -35,5 +36,5 @@ interface DogsApi {
     ): OneRacePhotos
 
     @GET("breeds/image/random")
-    suspend fun getRandomPhoto(): OneRacePhotos
+    suspend fun getRandomPhoto(): SingleDogResponse
 }

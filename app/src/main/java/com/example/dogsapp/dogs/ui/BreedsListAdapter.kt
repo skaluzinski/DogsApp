@@ -2,6 +2,7 @@ package com.example.dogsapp.dogs.ui
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.RoundedCorner
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.Navigation
@@ -9,9 +10,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.dogsapp.R
 import com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto
 import com.example.dogsapp.databinding.BreedsListItemBinding
+import loadImage
 
 class BreedsListAdapter(
     private val onItemClicked: (DogPhoto) -> Unit
@@ -75,12 +80,3 @@ class BreedsListAdapter(
 
 }
 
-fun loadImage(imageView: ImageView, url: String) {
-    Glide
-        .with(imageView.context)
-        .load(url)
-        .fitCenter()
-        .placeholder(R.drawable.loading_animation)
-        .error(R.drawable.ic_connection_error)
-        .into(imageView)
-}

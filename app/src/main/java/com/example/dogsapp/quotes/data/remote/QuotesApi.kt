@@ -12,11 +12,4 @@ interface QuotesApi {
     suspend fun getRandomQuotes(
         amount: Int = 1
     ): List<QuoteResponse>
-
-    @GET("{category}&limit={amount}")
-    suspend fun getQuotesByCategory(
-        @Path("category") category: String,
-        @Path("amount") amount: Int? = 1
-    ): List<QuoteResponse>
-
 }

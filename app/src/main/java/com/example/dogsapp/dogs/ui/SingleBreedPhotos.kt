@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.dogsapp.databinding.SingleBreedPhotosFragmentBinding
 import com.example.dogsapp.dogs.DogsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,8 +54,8 @@ class SingleBreedPhotos : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = sharedViewModel
         recyclerView = binding.breedPhotosRv
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val singleBreedAdapter = SingleBreedAdapter()
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        val singleBreedAdapter = SingleBreedAdapter(breedName)
         recyclerView.adapter = singleBreedAdapter
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

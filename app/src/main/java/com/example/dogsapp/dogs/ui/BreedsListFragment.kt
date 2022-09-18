@@ -46,7 +46,7 @@ class BreedsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = sharedViewModel
         recyclerView = binding.breedsListRv
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
         val breedsListAdapter = BreedsListAdapter(
             {
@@ -62,7 +62,6 @@ class BreedsListFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 sharedViewModel.dogPhotoPairs().collect() {
                     newList.add(it)
-
                     breedsListAdapter.submitList(newList.toList())
                 }
             }

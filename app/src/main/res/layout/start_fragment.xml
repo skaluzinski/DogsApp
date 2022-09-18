@@ -17,17 +17,18 @@
         tools:context=".mainMenu.StartFragment">
 
         <ImageView
-            android:id="@+id/photoCircle"
-            android:layout_width="196dp"
-            android:layout_height="196dp"
+            android:id="@+id/mainPhoto"
+            android:layout_width="160dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:elevation="8dp"
-            android:src="@drawable/index"
+            android:elevation="16dp"
             app:cardCornerRadius="280dp"
             app:layout_constraintBottom_toTopOf="@+id/welcomeMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/dogs_image" />
 
         <TextView
             android:id="@+id/welcomeMessage"
@@ -36,12 +37,13 @@
             android:layout_marginHorizontal="40dp"
             android:layout_marginVertical="8dp"
             android:text="@string/welcome_message"
+            android:textColor="@color/textColor"
             android:textSize="40sp"
             android:textStyle="bold"
             android:typeface="serif"
             app:layout_constraintBottom_toTopOf="@id/quote"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/photoCircle" />
+            app:layout_constraintTop_toBottomOf="@+id/mainPhoto" />
 
         <TextView
             android:id="@+id/quote"
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
             android:text="@string/example_quote"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textSize="20sp"
             android:textStyle="italic"
             android:typeface="serif"
@@ -88,25 +90,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <ImageView
                         android:id="@+id/breedsPhoto"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
                         android:elevation="16dp"
-                        android:src="@drawable/index"
                         app:cardCornerRadius="280dp"
                         app:layout_constraintBottom_toTopOf="@id/breedsText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="@string/dogs_image" />
 
                     <TextView
                         android:id="@+id/breedsText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/breedsText"
+                        android:textColor="@color/textColor"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:typeface="serif"
@@ -130,7 +133,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:onClick="@{() ->startFragment.navigateToBreeds() }"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="16dp"
                 tools:ignore="SpeakableTextPresentCheck">
@@ -146,20 +148,21 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
                         android:background="@null"
+                        android:contentDescription="@string/content_description_circle_photo"
+                        android:onClick="@{() -> startFragment.navigateToQuote()}"
                         android:src="@drawable/bubble"
                         app:layout_constraintBottom_toTopOf="@id/quoteText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="SpeakableTextPresentCheck"
-                        android:onClick="@{() -> startFragment.navigateToQuote()}"
-                        android:contentDescription="@string/content_description_circle_photo" />
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                     <TextView
                         android:id="@+id/quoteText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/quotesList"
+                        android:textColor="@color/textColor"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:typeface="serif"
