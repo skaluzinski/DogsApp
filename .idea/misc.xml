@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.287" />
         <entry key="app/src/main/res/drawable-v24/loading_img.xml" value="0.287" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.287" />
+        <entry key="app/src/main/res/drawable/myrect.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_breeds.xml" value="1.0" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26992753623188404" />
         <entry key="app/src/main/res/layout/authors_fragment.xml" value="0.15208333333333332" />
@@ -23,14 +24,15 @@
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.3115942028985507" />
         <entry key="app/src/main/res/layout/fragment_quote_menu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.3244176013805004" />
+        <entry key="app/src/main/res/layout/quote_menu_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.1109375" />
         <entry key="app/src/main/res/layout/single_breed_item.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/single_breed_photos_fragment.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/start_fragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/start_fragment.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

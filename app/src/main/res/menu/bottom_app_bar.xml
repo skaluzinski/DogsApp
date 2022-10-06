@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dogs_page"
+        android:enabled="true"
+        android:icon="@drawable/dog_icon"
+        android:title="Dogs"/>
+    <item
+        android:id="@+id/widgets_page"
+        android:enabled="true"
+        android:icon="@drawable/widgets_icon"
+        android:title="Widgets"/>
+    <item
+        android:id="@+id/quotes_page"
+        android:enabled="true"
+        android:icon="@drawable/quotes_icon"
+        android:title="Quotes"/>
+</menu>

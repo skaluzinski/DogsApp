@@ -6,4 +6,7 @@
     <string name="example_quote">Every time you are tempted to react in the same old way, ask if you want to be a prisoner of the past or a pioneer of the future.</string>
     <string name="breedsText">List of breeds</string>
     <string name="quotesList">List of quotes</string>
+    <string name="dogs_image">Dogs image</string>
+    <string name="testQuote">“Success generally comes after you start. If you think success comes before you start, the world probably looks confusing to you. “</string>
+    <string name="example_author">-Scoot Adams</string>
 </resources>

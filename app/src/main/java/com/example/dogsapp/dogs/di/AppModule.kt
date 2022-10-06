@@ -81,9 +81,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRandomDogUseCase(
-        photosRepository: IPhotosRepository,
-        @IoDispatcher defaultDispatcher: CoroutineDispatcher
+        photosRepository: IPhotosRepository
     ): IGetRandomDogPhotoUseCase {
-        return GetRandomDogPhotoUseCase(photosRepository, defaultDispatcher)
+        return GetRandomDogPhotoUseCase(photosRepository)
     }
 }

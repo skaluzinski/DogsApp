@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.dogsapp.databinding.SingleBreedPhotosFragmentBinding
 import com.example.dogsapp.dogs.DogsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,19 +53,22 @@ class SingleBreedPhotos : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.viewModel = sharedViewModel
         recyclerView = binding.breedPhotosRv
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val singleBreedAdapter = SingleBreedAdapter()
+        val singleBreedAdapter = SingleBreedAdapter(breedName)
         recyclerView.adapter = singleBreedAdapter
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 sharedViewModel.dogBreedPhotos(breedName).collect() {
                     singleBreedAdapter.submitList(it)
                 }
+                binding.progressIndicator.visibility = View.GONE
             }
 
         }
+
+
     }
 
     override fun onDestroyView() {
