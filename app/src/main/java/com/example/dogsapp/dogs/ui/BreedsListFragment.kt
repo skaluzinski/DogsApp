@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,7 +16,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.dogsapp.dogs.DogsViewModel
 import com.example.dogsapp.databinding.BreedsListFragmentBinding
 import com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto
@@ -46,7 +50,7 @@ class BreedsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = sharedViewModel
         recyclerView = binding.breedsListRv
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        //recyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
 
         val breedsListAdapter = BreedsListAdapter(
             {
@@ -64,8 +68,14 @@ class BreedsListFragment : Fragment() {
                     newList.add(it)
                     breedsListAdapter.submitList(newList.toList())
                 }
+                binding.progressIndicator.visibility = View.GONE
             }
+
         }
+
+        recyclerView.addItemDecoration(
+            BreedsItemDecoration()
+        )
     }
 
     override fun onDestroy() {

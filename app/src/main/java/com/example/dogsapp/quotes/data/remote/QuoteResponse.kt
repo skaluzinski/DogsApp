@@ -8,7 +8,4 @@ data class QuoteResponse(
 
     @Json(name = "author")
     val author: String,
-
-    @Json(name = "category")
-    val category: String
 )

@@ -3,40 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph"
-    app:startDestination="@id/startFragment">
+    app:startDestination="@id/dogsFragment">
     <fragment
-        android:id="@+id/startFragment"
-        android:name="com.example.dogsapp.mainMenu.StartFragment"
-        android:label="fragment_start"
-        tools:layout="@layout/start_fragment" >
-        <action
-            android:id="@+id/action_startFragment_to_breedsListFragment"
-            app:destination="@id/breedsListFragment" />
-        <action
-            android:id="@+id/action_startFragment_to_quoteMenuFragment"
-            app:destination="@id/quoteMenuFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/breedPhotos"
+        android:id="@+id/dogDetailFragment"
         android:name="com.example.dogsapp.dogs.ui.SingleBreedPhotos"
         android:label="fragment_breed_photos"
         tools:layout="@layout/single_breed_photos_fragment" >
         <argument
             android:name="breed"
             app:argType="string" />
+        <action
+            android:id="@+id/action_breedPhotos_to_quotesListFragment"
+            app:destination="@id/quotesFragment" />
+        <action
+            android:id="@+id/action_breedPhotos_self"
+            app:destination="@id/dogDetailFragment" />
+        <action
+            android:id="@+id/action_breedPhotos_to_quotesListFragment2"
+            app:destination="@id/quotesFragment" />
+        <action
+            android:id="@+id/action_breedPhotos_to_breedsListFragment"
+            app:destination="@id/dogsFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
-        android:id="@+id/breedsListFragment"
+        android:id="@+id/dogsFragment"
         android:name="com.example.dogsapp.dogs.ui.BreedsListFragment"
         android:label="fragment_breeds_list"
         tools:layout="@layout/breeds_list_fragment" >
         <action
             android:id="@+id/action_breedsListFragment_to_breedPhotos"
-            app:destination="@id/breedPhotos" />
+            app:destination="@id/dogDetailFragment" />
+        <action
+            android:id="@+id/action_breedsListFragment_to_breedPhotos2"
+            app:destination="@id/dogDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@android:anim/linear_interpolator"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_breedsListFragment_to_quotesListFragment"
+            app:destination="@id/quotesFragment" />
+        <action
+            android:id="@+id/action_breedsListFragment_self"
+            app:destination="@id/dogsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/quoteMenuFragment"
-        android:name="com.example.dogsapp.quotes.QuoteMenuFragment"
-        android:label="fragment_quote_menu"
-        tools:layout="@layout/quote_menu_fragment" />
+        android:id="@+id/quotesFragment"
+        android:name="com.example.dogsapp.quotes.ui.QuotesListFragment"
+        android:label="QuotesListFragment" >
+        <action
+            android:id="@+id/action_quotesListFragment_to_breedsListFragment"
+            app:destination="@id/dogsFragment" />
+        <action
+            android:id="@+id/action_quotesListFragment_to_breedPhotos"
+            app:destination="@id/dogDetailFragment" />
+        <action
+            android:id="@+id/action_quotesListFragment_to_breedsListFragment2"
+            app:destination="@id/dogsFragment" />
+        <action
+            android:id="@+id/action_quotesListFragment_self"
+            app:destination="@id/quotesFragment" />
+    </fragment>
 </navigation>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -52,9 +53,9 @@ class SingleBreedPhotos : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.viewModel = sharedViewModel
         recyclerView = binding.breedPhotosRv
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         val singleBreedAdapter = SingleBreedAdapter(breedName)
         recyclerView.adapter = singleBreedAdapter
         lifecycle.coroutineScope.launch {
@@ -62,9 +63,12 @@ class SingleBreedPhotos : Fragment() {
                 sharedViewModel.dogBreedPhotos(breedName).collect() {
                     singleBreedAdapter.submitList(it)
                 }
+                binding.progressIndicator.visibility = View.GONE
             }
 
         }
+
+
     }
 
     override fun onDestroyView() {

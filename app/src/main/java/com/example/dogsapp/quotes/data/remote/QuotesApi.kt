@@ -5,11 +5,9 @@ import retrofit2.http.Path
 
 interface QuotesApi {
 
-    @GET("")
+    @GET("randomQuote")
     suspend fun getRandomQuote(): QuoteResponse
 
-    @GET("&limit={amount}")
-    suspend fun getRandomQuotes(
-        amount: Int = 1
-    ): List<QuoteResponse>
+    @GET("quotes")
+    suspend fun getAllQuotes(): List<QuoteResponse>
 }
