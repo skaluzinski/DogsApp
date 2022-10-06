@@ -1,21 +1,21 @@
 package com.example.dogsapp.dogs.ui
 
+import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toBitmapOrNull
-import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogsapp.databinding.SingleBreedItemBinding
-import loadImage
-import saveImage
 
-class SingleBreedAdapter(private val breedName: String) :
+class SingleBreedAdapter(
+    private val breedName: String,
+    private val imageLoadingFunction: (ImageView, String) -> Unit,
+    private val imageSavingFunction: (Bitmap, Context, String) -> Unit
+) :
     ListAdapter<String,
             SingleBreedAdapter.SingleBreedViewHolder>
         (DiffCallback) {
@@ -33,15 +33,20 @@ class SingleBreedAdapter(private val breedName: String) :
         }
     }
 
-    class SingleBreedViewHolder(private var binding: SingleBreedItemBinding,breedName: String) :
+    class SingleBreedViewHolder(private var binding: SingleBreedItemBinding, breedName: String) :
         RecyclerView.ViewHolder(binding.root) {
         val breed = breedName
-        fun bind(link: String,breedName: String) {
+        fun bind(
+            link: String,
+            breedName: String,
+            loadImage: (ImageView, String) -> Unit,
+            saveImage: (Bitmap, Context, String) -> Unit
+        ) {
             loadImage(binding.photo, link)
             binding.photo.setOnLongClickListener {
                 val bitmap = binding.photo.drawable.toBitmap()
-                saveImage(bitmap,binding.root.context,"dogPhotos/$breedName")
-                true
+                saveImage(bitmap, binding.root.context, "dogPhotos/$breedName")
+                return@setOnLongClickListener true
             }
         }
     }
@@ -52,12 +57,12 @@ class SingleBreedAdapter(private val breedName: String) :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
-        ,breedName)
+            ), breedName
+        )
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: SingleBreedViewHolder, position: Int) {
-        holder.bind(getItem(position),holder.breed)
+        holder.bind(getItem(position), holder.breed, imageLoadingFunction, imageSavingFunction)
     }
 }

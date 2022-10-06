@@ -1,25 +1,21 @@
 package com.example.dogsapp.dogs.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.dogsapp.databinding.SingleBreedPhotosFragmentBinding
 import com.example.dogsapp.dogs.DogsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import loadImage
+import saveImage
 
 @AndroidEntryPoint
 class SingleBreedPhotos : Fragment() {
@@ -31,7 +27,6 @@ class SingleBreedPhotos : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             breedName = it.getString("breed").toString()
         }
@@ -56,7 +51,7 @@ class SingleBreedPhotos : Fragment() {
 
         binding.viewModel = sharedViewModel
         recyclerView = binding.breedPhotosRv
-        val singleBreedAdapter = SingleBreedAdapter(breedName)
+        val singleBreedAdapter = SingleBreedAdapter(breedName, ::loadImage, ::saveImage)
         recyclerView.adapter = singleBreedAdapter
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -65,19 +60,16 @@ class SingleBreedPhotos : Fragment() {
                 }
                 binding.progressIndicator.visibility = View.GONE
             }
-
         }
-
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
     }
+
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
-
     }
 
 }
