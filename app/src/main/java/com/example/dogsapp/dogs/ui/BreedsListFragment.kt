@@ -2,30 +2,22 @@ package com.example.dogsapp.dogs.ui
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import com.example.dogsapp.dogs.DogsViewModel
 import com.example.dogsapp.databinding.BreedsListFragmentBinding
+import com.example.dogsapp.dogs.DogsViewModel
 import com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import loadImage
 
 @AndroidEntryPoint
 class BreedsListFragment : Fragment() {
@@ -58,7 +50,8 @@ class BreedsListFragment : Fragment() {
                     it.breed
                 )
                 view.findNavController().navigate(action)
-            }
+            },
+            ::loadImage
         )
         val newList = mutableListOf<DogPhoto>()
         recyclerView.adapter = breedsListAdapter

@@ -6,10 +6,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dogsapp.databinding.BreedsListItemBinding
 import com.example.dogsapp.databinding.QuotesListItemBinding
-import com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto
-import com.example.dogsapp.dogs.ui.BreedsListAdapter
 import com.example.dogsapp.quotes.data.remote.QuoteResponse
 
 class QuotesListAdapter(
@@ -40,18 +37,14 @@ class QuotesListAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewHolder = QuotesListAdapter.ViewHolder(
+        val viewHolder = ViewHolder(
             QuotesListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
-        viewHolder.itemView.setOnClickListener {
-            val position = viewHolder.adapterPosition
-            Toast.makeText(parent.context,"click at item nr $position",Toast.LENGTH_SHORT).show()
-            true
-        }
+
         viewHolder.itemView.setOnLongClickListener {
             Toast.makeText(parent.context,"long click",Toast.LENGTH_SHORT).show()
             true
