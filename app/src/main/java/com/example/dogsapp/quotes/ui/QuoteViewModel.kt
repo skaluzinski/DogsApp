@@ -21,7 +21,7 @@ class QuoteViewModel @Inject constructor(
 
     suspend fun fetchRandomQuote(): Flow<QuoteResponse> = getRandomQuoteUseCase.execute()
 
-    fun saveQuote(quoteResponse: QuoteResponse) {
+    fun saveQuote(quoteResponse: QuoteResponse)  {
         viewModelScope.launch() {
             saveQuoteUseCase.execute(quoteResponse)
         }

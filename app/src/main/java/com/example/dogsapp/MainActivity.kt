@@ -3,24 +3,20 @@ package com.example.dogsapp
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.dogsapp.databinding.ActivityMainBinding
-import com.example.dogsapp.quotes.data.remote.QuoteResponse
 import com.example.dogsapp.quotes.ui.QuotesListFragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragment.quoteSnackbar {
+class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragment.quoteToast {
 
     private var notificationCount: Int = 0
 
@@ -74,7 +70,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragme
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    override fun show(message: String) {
+    override fun showToast(message: String) {
         Toast.makeText(
             binding.container.context,
             message,

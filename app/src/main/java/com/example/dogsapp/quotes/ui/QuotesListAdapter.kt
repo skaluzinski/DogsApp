@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class QuotesListAdapter(
     private val savingFuncton: (QuoteResponse) -> Unit,
-    private val quoteCheckingFunction: (QuoteResponse) -> Boolean,
+    private val quoteCheckingFunction:suspend (QuoteResponse) -> Boolean,
     private val quoteSnackbar: (String) -> Unit
 ) : ListAdapter<
         QuoteResponse,
@@ -22,7 +22,7 @@ class QuotesListAdapter(
         fun bind(
             quoteResponse: QuoteResponse,
             savingFuncton: (QuoteResponse) -> Unit,
-            quoteCheckingFunction: (QuoteResponse) -> Boolean,
+//            quoteCheckingFunction: (QuoteResponse) -> Boolean,
             quoteSnackbar: (String) -> Unit
         ) {
             binding.apply {
@@ -33,10 +33,10 @@ class QuotesListAdapter(
 
                 quoteAuthor.text = author
                 root.setOnLongClickListener {
-                    if (quoteCheckingFunction(quoteResponse)) {
-                        quoteSnackbar("You have already saved quote of $author.")
-                        return@setOnLongClickListener true
-                    }
+//                    if (quoteCheckingFunction(quoteResponse)) {
+//                        quoteSnackbar("You have already saved quote of $author.")
+//                        return@setOnLongClickListener true
+//                    }
                     savingFuncton(quoteResponse)
                     quoteSnackbar("Saved quote of $author.")
                     return@setOnLongClickListener true
@@ -70,6 +70,6 @@ class QuotesListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val quoteResponse = getItem(position)
 
-        holder.bind(quoteResponse, savingFuncton, quoteCheckingFunction, quoteSnackbar)
+        holder.bind(quoteResponse, savingFuncton, quoteSnackbar)
     }
 }
