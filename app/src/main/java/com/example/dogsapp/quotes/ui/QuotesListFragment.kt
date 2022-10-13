@@ -1,6 +1,7 @@
 package com.example.dogsapp.quotes.ui
 
 import android.os.Bundle
+import android.text.BoringLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogsapp.databinding.QuotesListFragmentBinding
+import com.example.dogsapp.quotes.data.remote.QuoteResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -39,8 +41,8 @@ class QuotesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.quotesListRv
         val quotesAdapter = QuotesListAdapter(
-            quoteViewModel::saveQuote,
-            quoteViewModel::searchForQuote,
+            ::saveQuote,
+            ::checkIfQuoteExists,
             notificationPresenter::showToast
         )
 
@@ -57,5 +59,10 @@ class QuotesListFragment : Fragment() {
 
     }
 
+    fun checkIfQuoteExists(quoteResponse: QuoteResponse): Boolean{
+        return false
+    }
+
+    fun saveQuote(quoteResponse: QuoteResponse) = quoteViewModel.saveQuote(quoteResponse)
 
 }
