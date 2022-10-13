@@ -1,6 +1,9 @@
-package com.example.dogsapp.dogs.data.remote
+package com.example.dogsapp.dogs.data
 
-class DogsRepository(
+import com.example.dogsapp.dogs.data.remote.IDogsRemoteDataSource
+import javax.inject.Inject
+
+class DogsRepository @Inject constructor(
     private val dogsRemoteDataSource: IDogsRemoteDataSource
 ) : IDogsRepository {
     override suspend fun fetchAllBreeds(): Map<String, String?> {

@@ -1,4 +1,4 @@
-package com.example.dogsapp.dogs.data.remote
+package com.example.dogsapp.dogs.data
 
 interface IDogsRepository {
     suspend fun fetchAllBreeds(): Map<String, String?>

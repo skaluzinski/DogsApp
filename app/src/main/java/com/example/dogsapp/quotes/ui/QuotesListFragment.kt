@@ -1,24 +1,19 @@
 package com.example.dogsapp.quotes.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dogsapp.R
-import com.example.dogsapp.databinding.BreedsListFragmentBinding
 import com.example.dogsapp.databinding.QuotesListFragmentBinding
-import com.example.dogsapp.dogs.DogsViewModel
-import com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto
-import com.example.dogsapp.dogs.ui.BreedsListAdapter
-import com.example.dogsapp.dogs.ui.BreedsListFragmentDirections
+import com.example.dogsapp.quotes.data.remote.QuoteResponse
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,22 +23,36 @@ class QuotesListFragment : Fragment() {
     private var _binding: QuotesListFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
+    private val listener by lazy { requireActivity() as QuotesListFragment.quoteSnackbar }
+
+    interface quoteSnackbar {
+        fun show(message: String)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val fragmentBinding = QuotesListFragmentBinding.inflate(inflater, container, false)
-        _binding = fragmentBinding       // Inflate the layout for this fragment
+        _binding = fragmentBinding
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.quotesListRv
-        val quotesAdapter = QuotesListAdapter {
+        val quotesAdapter = QuotesListAdapter(
+            {
+                quoteViewModel.saveQuote(it)
+            },
+            {
+                quoteViewModel.searchForQuote(it)
+            },
+            {
+                listener.show(it)
+            }
+        )
 
-        }
         recyclerView.adapter = quotesAdapter
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

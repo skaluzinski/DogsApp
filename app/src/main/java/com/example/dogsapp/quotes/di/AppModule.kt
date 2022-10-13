@@ -2,14 +2,14 @@ package com.example.dogsapp.quotes.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.dogsapp.quotes.data.local.SavedQuotesDatabase
+import com.example.dogsapp.dogs.di.IoDispatcher
+import com.example.dogsapp.quotes.data.QuotesRepository
+import com.example.dogsapp.quotes.data.AppDatabase
+import com.example.dogsapp.quotes.data.local.SavedQuotesDao
 import com.example.dogsapp.quotes.data.remote.IQuotesRemoteDataSource
 import com.example.dogsapp.quotes.data.remote.QuotesApi
 import com.example.dogsapp.quotes.data.remote.QuotesRemoteDataSource
-import com.example.dogsapp.quotes.domain.GetAllQuotesUseCase
-import com.example.dogsapp.quotes.domain.GetRandomQuoteUseCase
-import com.example.dogsapp.quotes.domain.IGetAllQuotesUseCase
-import com.example.dogsapp.quotes.domain.IGetRandomQuoteUseCase
+import com.example.dogsapp.quotes.domain.*
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -63,25 +63,54 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAllQuotesUseCase(quotesRemoteDataSource: QuotesRemoteDataSource): IGetAllQuotesUseCase {
-        return GetAllQuotesUseCase(quotesRemoteDataSource)
+    fun provideQuotesRepository(
+        savedQuotesDao: SavedQuotesDao,
+        quotesRemoteDataSource: QuotesRemoteDataSource
+    ): QuotesRepository {
+        return QuotesRepository(savedQuotesDao, quotesRemoteDataSource)
     }
 
     @Provides
     @Singleton
-    fun provideRandomQuoteUseCase(quotesRemoteDataSource: QuotesRemoteDataSource): IGetRandomQuoteUseCase {
-        return GetRandomQuoteUseCase(quotesRemoteDataSource)
+    fun provideAllQuotesUseCase(quotesRepository: QuotesRepository): IGetAllQuotesUseCase {
+        return GetAllQuotesUseCase(quotesRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRandomQuoteUseCase(quotesRepository: QuotesRepository): IGetRandomQuoteUseCase {
+        return GetRandomQuoteUseCase(quotesRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSaveQuoteUseCase(
+        quotesRepository: QuotesRepository,
+        @IoDispatcher defaultDispatcher: CoroutineDispatcher
+    ): ISaveQuoteUseCase {
+        return SaveQuoteUseCase(quotesRepository, defaultDispatcher)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideSavedQuotesDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            "savedQuotes"
+        ).build()
     }
 
     @Singleton
     @Provides
-    fun provideSavedQuotesDatabase(@ApplicationContext app: Context) = Room.databaseBuilder(
-        app,
-        SavedQuotesDatabase::class.java,
-        "saved_quotes"
-    ).build()
+    fun provideCheckIfQuoteIsSavedUseCase(quotesRepository: QuotesRepository): ICheckIfQuoteIsSavedUseCase{
+        return CheckIfQuoteIsSavedUseCase(quotesRepository)
+    }
 
-    @Singleton
     @Provides
-    fun provideSavedQuotesDao(db: SavedQuotesDatabase) = db.getSavedQuotesDao()
+    @Singleton
+    fun provideQuotesDao(appDatabase: AppDatabase): SavedQuotesDao {
+        return appDatabase.SavedQuotesDao()
+    }
 }

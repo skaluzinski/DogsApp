@@ -1,6 +1,6 @@
 package com.example.dogsapp.dogs.domain
 
-import com.example.dogsapp.dogs.data.remote.IPhotosRepository
+import com.example.dogsapp.dogs.data.IPhotosRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

@@ -11,7 +11,6 @@ import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogsapp.databinding.SingleBreedPhotosFragmentBinding
-import com.example.dogsapp.dogs.DogsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import loadImage

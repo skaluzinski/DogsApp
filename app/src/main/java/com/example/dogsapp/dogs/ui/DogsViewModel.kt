@@ -1,8 +1,5 @@
-package com.example.dogsapp.dogs
+package com.example.dogsapp.dogs.ui
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto
 import com.example.dogsapp.dogs.domain.IGetBreedWithAllPhotosUseCase

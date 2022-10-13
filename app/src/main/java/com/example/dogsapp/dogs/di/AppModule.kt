@@ -1,6 +1,10 @@
 package com.example.dogsapp.dogs.di
 
 
+import com.example.dogsapp.dogs.data.DogsRepository
+import com.example.dogsapp.dogs.data.IDogsRepository
+import com.example.dogsapp.dogs.data.IPhotosRepository
+import com.example.dogsapp.dogs.data.PhotosRepository
 import com.example.dogsapp.dogs.data.remote.*
 import com.example.dogsapp.dogs.domain.*
 import com.squareup.moshi.Moshi
