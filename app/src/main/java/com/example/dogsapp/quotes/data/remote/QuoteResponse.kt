@@ -8,4 +8,6 @@ data class QuoteResponse(
 
     @Json(name = "author")
     val author: String,
+
+    var isSaved: Boolean = false
 )

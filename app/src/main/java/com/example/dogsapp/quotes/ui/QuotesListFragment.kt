@@ -1,7 +1,6 @@
 package com.example.dogsapp.quotes.ui
 
 import android.os.Bundle
-import android.text.BoringLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ class QuotesListFragment : Fragment() {
     private var _binding: QuotesListFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private val notificationPresenter by lazy { requireActivity() as QuotesListFragment.quoteToast }
+    private val notificationPresenter by lazy { requireActivity() as quoteToast }
 
     interface quoteToast {
         fun showToast(message: String)
@@ -31,7 +30,7 @@ class QuotesListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = QuotesListFragmentBinding.inflate(inflater, container, false)
         _binding = fragmentBinding
         return fragmentBinding.root
@@ -51,6 +50,11 @@ class QuotesListFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 quoteViewModel.fetchAllQuotes().collect() { quotesList ->
+                    quotesList.forEach { quote ->
+                        if (checkIfQuoteExists(quote)){
+                            quote.isSaved = true
+                        }
+                    }
                     quotesAdapter.submitList(quotesList)
                 }
                 binding.progressIndicator.visibility = View.GONE
@@ -59,7 +63,10 @@ class QuotesListFragment : Fragment() {
 
     }
 
-    fun checkIfQuoteExists(quoteResponse: QuoteResponse): Boolean{
+    //Todo change current way to reactive state paradigm with accordance
+    //https://www.youtube.com/watch?v=PH9_FjiiZvo 37:30
+    fun checkIfQuoteExists(quoteResponse: QuoteResponse): Boolean {
+        quoteViewModel.searchForQuote(quoteResponse)
         return false
     }
 
