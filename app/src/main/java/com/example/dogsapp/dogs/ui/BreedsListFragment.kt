@@ -13,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogsapp.databinding.BreedsListFragmentBinding
-import com.example.dogsapp.dogs.DogsViewModel
 import com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -42,8 +41,6 @@ class BreedsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = sharedViewModel
         recyclerView = binding.breedsListRv
-        //recyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-
         val breedsListAdapter = BreedsListAdapter(
             {
                 val action = BreedsListFragmentDirections.actionBreedsListFragmentToBreedPhotos(

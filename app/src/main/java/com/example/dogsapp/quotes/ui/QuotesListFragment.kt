@@ -1,25 +1,22 @@
 package com.example.dogsapp.quotes.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dogsapp.R
-import com.example.dogsapp.databinding.BreedsListFragmentBinding
 import com.example.dogsapp.databinding.QuotesListFragmentBinding
-import com.example.dogsapp.dogs.DogsViewModel
-import com.example.dogsapp.dogs.data.remote.dataClasses.DogPhoto
-import com.example.dogsapp.dogs.ui.BreedsListAdapter
-import com.example.dogsapp.dogs.ui.BreedsListFragmentDirections
+import com.example.dogsapp.quotes.data.local.QuoteState
+import com.example.dogsapp.quotes.data.remote.QuoteResponse
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -28,27 +25,45 @@ class QuotesListFragment : Fragment() {
     private var _binding: QuotesListFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
+    private val notificationPresenter by lazy { requireActivity() as quoteToast }
+
+    interface quoteToast {
+        fun showToast(message: String)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = QuotesListFragmentBinding.inflate(inflater, container, false)
-        _binding = fragmentBinding       // Inflate the layout for this fragment
+        _binding = fragmentBinding
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.quotesListRv
-        val quotesAdapter = QuotesListAdapter {
+        val quotesAdapter = QuotesListAdapter(
+            ::saveQuote,
+            //::checkIfQuoteExists,
+            notificationPresenter::showToast
+        )
 
-        }
         recyclerView.adapter = quotesAdapter
+
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quoteViewModel.fetchAllQuotes().collect() {
-                    quotesAdapter.submitList(it)
+                quoteViewModel.fetchAllQuotes().collect() { quotesList ->
+                    quotesList.forEach { quote ->
+                        quoteViewModel.searchForQuote(quote).collect() { quoteState ->
+                            if (quoteState) {
+                                quote.isSaved = QuoteState.SAVED
+                            } else {
+                                quote.isSaved = QuoteState.NOT_SAVED
+                            }
+                        }
+                    }
+                    quotesAdapter.submitList(quotesList)
                 }
                 binding.progressIndicator.visibility = View.GONE
             }
@@ -56,5 +71,10 @@ class QuotesListFragment : Fragment() {
 
     }
 
+    //Todo change current way to reactive state paradigm with accordance
+    //https://www.youtube.com/watch?v=PH9_FjiiZvo 37:30
+
+
+    fun saveQuote(quoteResponse: QuoteResponse) = quoteViewModel.saveQuote(quoteResponse)
 
 }

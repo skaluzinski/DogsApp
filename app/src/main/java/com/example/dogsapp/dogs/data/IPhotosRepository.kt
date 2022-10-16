@@ -1,4 +1,4 @@
-package com.example.dogsapp.dogs.data.remote
+package com.example.dogsapp.dogs.data
 
 import com.example.dogsapp.dogs.data.remote.dataClasses.OneRacePhotos
 import com.example.dogsapp.dogs.data.remote.dataClasses.SingleDogResponse

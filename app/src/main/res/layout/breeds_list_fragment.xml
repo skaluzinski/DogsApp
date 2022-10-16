@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.dogsapp.dogs.DogsViewModel" />
+            type="com.example.dogsapp.dogs.ui.DogsViewModel" />
     </data>
 
 

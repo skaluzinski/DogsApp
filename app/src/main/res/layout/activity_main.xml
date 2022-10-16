@@ -6,7 +6,6 @@
     <data>
 
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -17,6 +16,7 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="?attr/colorSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -24,9 +24,11 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
+                android:backgroundTint="?attr/colorSurface"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/top_app_bar"
                 app:navigationIcon="@drawable/dog_icon"
+                app:navigationIconTint="?attr/colorOnSurface"
                 app:title="dupa3" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -51,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="?attr/colorSurface"
                 app:elevation="3dp"
+
                 app:itemIconSize="24dp"
                 app:itemIconTint="?attr/colorOnSurfaceVariant"
                 app:itemRippleColor="?attr/colorOnSurfaceVariant"

@@ -41,8 +41,7 @@ fun saveImage(bitmap: Bitmap, context: Context, folderName: String) {
             saveImageToStream(bitmap, context.contentResolver.openOutputStream(uri))
             values.put(MediaStore.Images.Media.IS_PENDING, false)
             context.contentResolver.update(uri, values, null, null)
-            Toast.makeText(context,"Image saved to Pictures/$folderName",Toast.LENGTH_SHORT).show()
-        }
+            }
     } else {
         val directory =
             File(Environment.getExternalStorageDirectory().toString() + separator + folderName)

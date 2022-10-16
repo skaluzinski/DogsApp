@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph"
-    app:startDestination="@id/dogsFragment">
+    app:startDestination="@id/quotesFragment">
     <fragment
         android:id="@+id/dogDetailFragment"
         android:name="com.example.dogsapp.dogs.ui.SingleBreedPhotos"
