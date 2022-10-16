@@ -3,13 +3,9 @@ package com.example.dogsapp.quotes.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dogsapp.quotes.data.remote.QuoteResponse
-import com.example.dogsapp.quotes.domain.ICheckIfQuoteIsSavedUseCase
-import com.example.dogsapp.quotes.domain.IGetAllQuotesUseCase
-import com.example.dogsapp.quotes.domain.IGetRandomQuoteUseCase
-import com.example.dogsapp.quotes.domain.ISaveQuoteUseCase
+import com.example.dogsapp.quotes.domain.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,12 +15,11 @@ class QuoteViewModel @Inject constructor(
     private val getAllQuotesUseCase: IGetAllQuotesUseCase,
     private val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
     private val saveQuoteUseCase: ISaveQuoteUseCase,
-    private val checkIfQuoteIsSavedUseCase: ICheckIfQuoteIsSavedUseCase
+    private val checkIfQuoteIsSavedUseCase: ICheckIfQuoteIsSavedUseCase,
+    private val deleteQuoteLocallyUseCase: DeleteQuoteLocallyUseCase
 ) :
 
     ViewModel() {
-    private val _queryState = MutableStateFlow("")
-    val queryState: MutableStateFlow<String> = _queryState
 
 
     suspend fun fetchAllQuotes(): Flow<List<QuoteResponse>> = getAllQuotesUseCase.execute()
@@ -40,5 +35,10 @@ class QuoteViewModel @Inject constructor(
     fun searchForQuote(quoteResponse: QuoteResponse) =
         flow { emit(checkIfQuoteIsSavedUseCase.execute(quoteResponse)) }
 
+    fun deleteQuote(quoteResponse: QuoteResponse){
+        viewModelScope.launch {
+            deleteQuoteLocallyUseCase.execute(quoteResponse)
+        }
+    }
 
 }

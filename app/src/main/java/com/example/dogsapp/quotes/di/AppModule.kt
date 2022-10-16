@@ -69,7 +69,7 @@ object AppModule {
         quotesRemoteDataSource: QuotesRemoteDataSource,
         @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
     ): QuotesRepository {
-        return QuotesRepository(savedQuotesDao, quotesRemoteDataSource, defaultDispatcher )
+        return QuotesRepository(savedQuotesDao, quotesRemoteDataSource, defaultDispatcher)
     }
 
     @Provides
@@ -106,7 +106,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideCheckIfQuoteIsSavedUseCase(quotesRepository: QuotesRepository): ICheckIfQuoteIsSavedUseCase{
+    fun provideCheckIfQuoteIsSavedUseCase(quotesRepository: QuotesRepository): ICheckIfQuoteIsSavedUseCase {
         return CheckIfQuoteIsSavedUseCase(quotesRepository)
     }
 
@@ -114,5 +114,11 @@ object AppModule {
     @Singleton
     fun provideQuotesDao(appDatabase: AppDatabase): SavedQuotesDao {
         return appDatabase.SavedQuotesDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteQuotesLocallyUseCase(quotesRepository: QuotesRepository): IDeleteQuoteLocallyUseCase {
+        return DeleteQuoteLocallyUseCase(quotesRepository)
     }
 }
