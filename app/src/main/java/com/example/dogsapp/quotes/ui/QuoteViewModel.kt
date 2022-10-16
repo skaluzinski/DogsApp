@@ -10,6 +10,7 @@ import com.example.dogsapp.quotes.domain.ISaveQuoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,10 +37,8 @@ class QuoteViewModel @Inject constructor(
         }
     }
 
-    fun searchForQuote(quoteResponse: QuoteResponse) {
-        viewModelScope.launch {
-            _queryState.value = checkIfQuoteIsSavedUseCase.execute(quoteResponse).toString()
-        }
-    }
+    fun searchForQuote(quoteResponse: QuoteResponse) =
+        flow { emit(checkIfQuoteIsSavedUseCase.execute(quoteResponse)) }
+
 
 }

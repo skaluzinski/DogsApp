@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogsapp.databinding.QuotesListItemBinding
+import com.example.dogsapp.quotes.data.local.QuoteState
 import com.example.dogsapp.quotes.data.remote.QuoteResponse
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.Flow
 
 class QuotesListAdapter(
     private val savingFuncton: (QuoteResponse) -> Unit,
-    private val quoteCheckingFunction:suspend (QuoteResponse) -> Boolean,
+    //private val quoteCheckingFunction: (QuoteResponse) -> Flow<Boolean>,
     private val quoteSnackbar: (String) -> Unit
 ) : ListAdapter<
         QuoteResponse,
@@ -33,12 +35,12 @@ class QuotesListAdapter(
 
                 quoteAuthor.text = author
                 root.setOnLongClickListener {
-//                    if (quoteCheckingFunction(quoteResponse)) {
-//                        quoteSnackbar("You have already saved quote of $author.")
-//                        return@setOnLongClickListener true
-//                    }
                     savingFuncton(quoteResponse)
-                    quoteSnackbar("Saved quote of $author.")
+                    when(quoteResponse.isSaved){
+                        QuoteState.NOT_SAVED -> quoteSnackbar("Saved quote of $author.")
+                        QuoteState.SAVED -> quoteSnackbar("This quote is already saved.")
+                        else -> quoteSnackbar("This is a quote of $author.")
+                    }
                     return@setOnLongClickListener true
                 }
             }

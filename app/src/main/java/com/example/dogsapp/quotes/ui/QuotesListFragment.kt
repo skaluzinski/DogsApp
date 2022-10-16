@@ -11,8 +11,12 @@ import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogsapp.databinding.QuotesListFragmentBinding
+import com.example.dogsapp.quotes.data.local.QuoteState
 import com.example.dogsapp.quotes.data.remote.QuoteResponse
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -41,7 +45,7 @@ class QuotesListFragment : Fragment() {
         recyclerView = binding.quotesListRv
         val quotesAdapter = QuotesListAdapter(
             ::saveQuote,
-            ::checkIfQuoteExists,
+            //::checkIfQuoteExists,
             notificationPresenter::showToast
         )
 
@@ -51,8 +55,12 @@ class QuotesListFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 quoteViewModel.fetchAllQuotes().collect() { quotesList ->
                     quotesList.forEach { quote ->
-                        if (checkIfQuoteExists(quote)){
-                            quote.isSaved = true
+                        quoteViewModel.searchForQuote(quote).collect() { quoteState ->
+                            if (quoteState) {
+                                quote.isSaved = QuoteState.SAVED
+                            } else {
+                                quote.isSaved = QuoteState.NOT_SAVED
+                            }
                         }
                     }
                     quotesAdapter.submitList(quotesList)
@@ -65,10 +73,7 @@ class QuotesListFragment : Fragment() {
 
     //Todo change current way to reactive state paradigm with accordance
     //https://www.youtube.com/watch?v=PH9_FjiiZvo 37:30
-    fun checkIfQuoteExists(quoteResponse: QuoteResponse): Boolean {
-        quoteViewModel.searchForQuote(quoteResponse)
-        return false
-    }
+
 
     fun saveQuote(quoteResponse: QuoteResponse) = quoteViewModel.saveQuote(quoteResponse)
 

@@ -2,6 +2,7 @@ package com.example.dogsapp.quotes.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.dogsapp.dogs.di.DefaultDispatcher
 import com.example.dogsapp.dogs.di.IoDispatcher
 import com.example.dogsapp.quotes.data.QuotesRepository
 import com.example.dogsapp.quotes.data.AppDatabase
@@ -65,9 +66,10 @@ object AppModule {
     @Singleton
     fun provideQuotesRepository(
         savedQuotesDao: SavedQuotesDao,
-        quotesRemoteDataSource: QuotesRemoteDataSource
+        quotesRemoteDataSource: QuotesRemoteDataSource,
+        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
     ): QuotesRepository {
-        return QuotesRepository(savedQuotesDao, quotesRemoteDataSource)
+        return QuotesRepository(savedQuotesDao, quotesRemoteDataSource, defaultDispatcher )
     }
 
     @Provides
