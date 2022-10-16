@@ -1,20 +1,18 @@
 package com.example.dogsapp.quotes.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dogsapp.R
 import com.example.dogsapp.databinding.QuotesListItemBinding
 import com.example.dogsapp.quotes.data.local.QuoteState
 import com.example.dogsapp.quotes.data.remote.QuoteResponse
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.Flow
 
 class QuotesListAdapter(
     private val savingFuncton: (QuoteResponse) -> Unit,
-    //private val quoteCheckingFunction: (QuoteResponse) -> Flow<Boolean>,
+    private val deletingFunction: (QuoteResponse) -> Unit,
     private val quoteSnackbar: (String) -> Unit
 ) : ListAdapter<
         QuoteResponse,
@@ -24,24 +22,35 @@ class QuotesListAdapter(
         fun bind(
             quoteResponse: QuoteResponse,
             savingFuncton: (QuoteResponse) -> Unit,
-//            quoteCheckingFunction: (QuoteResponse) -> Boolean,
+            deletingFunction: (QuoteResponse) -> Unit,
             quoteSnackbar: (String) -> Unit
         ) {
-            binding.apply {
-                quoteText.text = quoteResponse.quote
-                val delim = " "
-                val words = quoteResponse.author.trim().split(delim)
-                val author = words.joinToString(separator = " ")
 
+            binding.apply {
+                val delim = " "
+                val words = quoteResponse.author.split(delim)
+                val author = words.joinToString(separator = " ").replace("\\s+".toRegex(), " ")
+                if (quoteResponse.isSaved == QuoteState.SAVED) {
+                    bookmark.setImageResource(R.drawable.bookmark_filled)
+                }
+                quoteText.text = quoteResponse.quote
                 quoteAuthor.text = author
-                root.setOnLongClickListener {
-                    savingFuncton(quoteResponse)
-                    when(quoteResponse.isSaved){
-                        QuoteState.NOT_SAVED -> quoteSnackbar("Saved quote of $author.")
-                        QuoteState.SAVED -> quoteSnackbar("This quote is already saved.")
+                bookmark.setOnClickListener {
+                    when (quoteResponse.isSaved) {
+                        QuoteState.NOT_SAVED -> {
+                            bookmark.setImageResource(R.drawable.bookmark_filled)
+                            savingFuncton(quoteResponse)
+                            quoteResponse.isSaved = QuoteState.SAVED
+                            quoteSnackbar("Saved quote of $author.")
+                        }
+                        QuoteState.SAVED -> {
+                            deletingFunction(quoteResponse)
+                            quoteResponse.isSaved = QuoteState.NOT_SAVED
+                            bookmark.setImageResource(R.drawable.bookmark)
+                            quoteSnackbar("Deleted quote of $author.")
+                        }
                         else -> quoteSnackbar("This is a quote of $author.")
                     }
-                    return@setOnLongClickListener true
                 }
             }
         }
@@ -72,6 +81,6 @@ class QuotesListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val quoteResponse = getItem(position)
 
-        holder.bind(quoteResponse, savingFuncton, quoteSnackbar)
+        holder.bind(quoteResponse, savingFuncton, deletingFunction, quoteSnackbar)
     }
 }

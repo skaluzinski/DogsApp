@@ -14,9 +14,6 @@ import com.example.dogsapp.databinding.QuotesListFragmentBinding
 import com.example.dogsapp.quotes.data.local.QuoteState
 import com.example.dogsapp.quotes.data.remote.QuoteResponse
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -45,7 +42,7 @@ class QuotesListFragment : Fragment() {
         recyclerView = binding.quotesListRv
         val quotesAdapter = QuotesListAdapter(
             ::saveQuote,
-            //::checkIfQuoteExists,
+            ::deleteQuote,
             notificationPresenter::showToast
         )
 
@@ -76,5 +73,7 @@ class QuotesListFragment : Fragment() {
 
 
     fun saveQuote(quoteResponse: QuoteResponse) = quoteViewModel.saveQuote(quoteResponse)
+
+    fun deleteQuote(quoteResponse: QuoteResponse) = quoteViewModel.deleteQuote(quoteResponse)
 
 }

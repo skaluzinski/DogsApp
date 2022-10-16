@@ -1,17 +1,10 @@
 package com.example.dogsapp.quotes.data.local
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
-import com.example.dogsapp.quotes.data.remote.QuoteResponse
-import kotlinx.coroutines.flow.Flow
+import androidx.room.*
 
 @Dao
 interface SavedQuotesDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveQuote(item: SavedQuotes)
 
     @Update
@@ -25,6 +18,9 @@ interface SavedQuotesDao {
 
     @Query("DELETE FROM savedQuotes")
     fun deleteSavedQuotes()
+
+    @Query("SELECT id FROM savedQuotes WHERE author LIKE :authorToFind AND quote LIKE :quoteToFind")
+    fun getIdOfQuote(authorToFind: String, quoteToFind: String): Int
 
     @Query("SELECT EXISTS(SELECT * FROM savedQuotes WHERE author LIKE :authorToFind AND quote LIKE :quoteToFind)")
     fun checkIfSaved(authorToFind: String, quoteToFind: String): Boolean
