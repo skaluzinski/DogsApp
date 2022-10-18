@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/dogDetailFragment"
         android:name="com.example.dogsapp.dogs.ui.SingleBreedPhotos"
-        android:label="fragment_breed_photos"
-        tools:layout="@layout/single_breed_photos_fragment" >
+        android:label="Images of {breed}."
+        tools:layout="@layout/single_breed_photos_fragment">
         <argument
             android:name="breed"
             app:argType="string" />
@@ -25,12 +25,15 @@
             android:id="@+id/action_breedPhotos_to_breedsListFragment"
             app:destination="@id/dogsFragment"
             app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_dogDetailFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/dogsFragment"
         android:name="com.example.dogsapp.dogs.ui.BreedsListFragment"
-        android:label="fragment_breeds_list"
-        tools:layout="@layout/breeds_list_fragment" >
+        android:label="Choose your breed"
+        tools:layout="@layout/breeds_list_fragment">
         <action
             android:id="@+id/action_breedsListFragment_to_breedPhotos"
             app:destination="@id/dogDetailFragment" />
@@ -48,11 +51,14 @@
         <action
             android:id="@+id/action_breedsListFragment_self"
             app:destination="@id/dogsFragment" />
+        <action
+            android:id="@+id/action_dogsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/quotesFragment"
         android:name="com.example.dogsapp.quotes.ui.QuotesListFragment"
-        android:label="QuotesListFragment" >
+        android:label="Quotes list">
         <action
             android:id="@+id/action_quotesListFragment_to_breedsListFragment"
             app:destination="@id/dogsFragment" />
@@ -65,5 +71,17 @@
         <action
             android:id="@+id/action_quotesListFragment_self"
             app:destination="@id/quotesFragment" />
+        <action
+            android:id="@+id/action_quotesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.dogsapp.settings.ui.SettingsFragment"
+        android:label="Local settings"
+        tools:layout="@layout/settings_fragment">
+        <action
+            android:id="@+id/action_settingsFragment_to_dogsFragment"
+            app:destination="@id/dogsFragment" />
     </fragment>
 </navigation>

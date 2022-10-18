@@ -1,6 +1,5 @@
 package com.example.dogsapp.quotes.data
 
-import android.util.Log
 import com.example.dogsapp.dogs.di.DefaultDispatcher
 import com.example.dogsapp.quotes.data.local.SavedQuotes
 import com.example.dogsapp.quotes.data.local.SavedQuotesDao
@@ -42,7 +41,6 @@ class QuotesRepository @Inject constructor(
         }
 
     suspend fun deleteQuote(quoteResponse: QuoteResponse) = withContext(defaultDispatcher) {
-        Log.d("ID",getIdOfQuote(quoteResponse).toString(),)
         savedQuotesLocalDataSource.deleteQuote(
             SavedQuotes(
                 id = getIdOfQuote(quoteResponse),
