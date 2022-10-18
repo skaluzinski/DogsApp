@@ -1,7 +1,6 @@
 package com.example.dogsapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -36,10 +35,21 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragme
             )
         )
         val toolBar = findViewById<MaterialToolbar>(R.id.topAppBar)
-
+        toolBar.setupWithNavController(navController, appBarConfiguration)
         val bottomNavigationView: BottomNavigationView =
             findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
+
+        toolBar.setOnMenuItemClickListener{
+            when(it.itemId){
+                R.id.action_profile -> {
+                    navController.navigate(R.id.settingsFragment)
+                    true
+                }
+                else -> false
+            }
+
+        }
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.dogs_page -> {
@@ -70,6 +80,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragme
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+
     override fun showToast(message: String) {
         Toast.makeText(
             binding.container.context,
@@ -77,7 +88,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragme
             Toast.LENGTH_SHORT
         ).show()
 
-        Log.d("dupa4", "works")
 //          TODO Rewrite Toast to snackbar
 //        Snackbar.make(
 //            binding.container.context,
