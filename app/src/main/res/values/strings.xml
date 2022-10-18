@@ -9,4 +9,6 @@
     <string name="dogs_image">Dogs image</string>
     <string name="testQuote">“Success generally comes after you start. If you think success comes before you start, the world probably looks confusing to you. “</string>
     <string name="example_author">-Scoot Adams</string>
+    <string name="delete_quotes_string">Delete locally saved quotes.</string>
+    <string name="change_theme_string">Change theme of your app.</string>
 </resources>

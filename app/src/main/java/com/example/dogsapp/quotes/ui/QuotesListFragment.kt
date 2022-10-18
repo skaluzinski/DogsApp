@@ -72,8 +72,8 @@ class QuotesListFragment : Fragment() {
     //https://www.youtube.com/watch?v=PH9_FjiiZvo 37:30
 
 
-    fun saveQuote(quoteResponse: QuoteResponse) = quoteViewModel.saveQuote(quoteResponse)
+    private fun saveQuote(quoteResponse: QuoteResponse) = quoteViewModel.saveQuote(quoteResponse)
 
-    fun deleteQuote(quoteResponse: QuoteResponse) = quoteViewModel.deleteQuote(quoteResponse)
+    private fun deleteQuote(quoteResponse: QuoteResponse) = quoteViewModel.deleteQuote(quoteResponse)
 
 }

@@ -17,9 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragment.quoteToast {
 
-    private var notificationCount: Int = 0
-
-    private lateinit var currentToast: Toast
     private lateinit var navController: NavController
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,11 +87,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragme
 
 //          TODO Rewrite Toast to snackbar
 //        Snackbar.make(
-//            binding.container.context,
-//            binding.bottomNavigation,
-//            "sss",
+//            binding.root,
+//            message,
 //            Snackbar.LENGTH_SHORT
-//        ).setAnchorView(binding.bottomNavigation)
+//        ).setAnchorView(binding.container.rootView)
 //            .show()
     }
 }
