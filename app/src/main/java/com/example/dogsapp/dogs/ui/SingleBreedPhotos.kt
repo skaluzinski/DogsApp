@@ -23,6 +23,12 @@ class SingleBreedPhotos : Fragment() {
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var breedName: String
+    private val notificationPresenter by lazy {requireActivity() as showDogSnackbar }
+
+    interface showDogSnackbar {
+        fun showDogSnackbar(breedName: String)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +56,11 @@ class SingleBreedPhotos : Fragment() {
 
         //binding.viewModel = sharedViewModel
         recyclerView = binding.breedPhotosRv
-        val singleBreedAdapter = SingleBreedAdapter(breedName, ::loadImage, ::saveImage)
+        val singleBreedAdapter = SingleBreedAdapter(
+            breedName,
+            ::loadImage,
+            ::saveImage,
+            notificationPresenter::showDogSnackbar)
         recyclerView.adapter = singleBreedAdapter
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

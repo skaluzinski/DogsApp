@@ -8,14 +8,18 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.dogsapp.databinding.ActivityMainBinding
+import com.example.dogsapp.dogs.ui.SingleBreedPhotos
 import com.example.dogsapp.quotes.ui.QuotesListFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), QuotesListFragment.quoteSnackbar {
+class MainActivity : AppCompatActivity(), QuotesListFragment.quoteSnackbar,
+    SingleBreedPhotos.showDogSnackbar {
 
     private lateinit var navController: NavController
+    private var currentSnackbar: Snackbar? = null
+    private var currentSnackbarCount = 1
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,4 +89,26 @@ class MainActivity : AppCompatActivity(), QuotesListFragment.quoteSnackbar {
         ).setAnchorView(binding.bottomNavigation)
             .show()
     }
+
+    override fun showDogSnackbar(breedName: String) {
+        if (currentSnackbar?.isShown == true) {
+            currentSnackbarCount++
+            currentSnackbar = Snackbar.make(
+                binding.container,
+                "You downloaded $currentSnackbarCount images.",
+                Snackbar.LENGTH_SHORT
+            ).setAnchorView(binding.bottomNavigation)
+            currentSnackbar!!.show()
+        } else {
+            currentSnackbarCount = 1
+            currentSnackbar = Snackbar.make(
+                binding.container,
+                "You downloaded image of $breedName.",
+                Snackbar.LENGTH_SHORT
+            ).setAnchorView(binding.bottomNavigation)
+            currentSnackbar!!.show()
+        }
+    }
+
+
 }
