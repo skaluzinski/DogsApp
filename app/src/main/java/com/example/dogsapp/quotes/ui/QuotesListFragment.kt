@@ -22,10 +22,10 @@ class QuotesListFragment : Fragment() {
     private var _binding: QuotesListFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private val notificationPresenter by lazy { requireActivity() as quoteToast }
+    private val notificationPresenter by lazy { requireActivity() as quoteSnackbar }
 
-    interface quoteToast {
-        fun showToast(message: String)
+    interface quoteSnackbar {
+        fun quoteSnackbar(message: String)
     }
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ class QuotesListFragment : Fragment() {
         val quotesAdapter = QuotesListAdapter(
             ::saveQuote,
             ::deleteQuote,
-            notificationPresenter::showToast
+            notificationPresenter::quoteSnackbar
         )
 
         recyclerView.adapter = quotesAdapter

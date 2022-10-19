@@ -13,14 +13,15 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), QuotesListFragment.quoteToast {
+class MainActivity : AppCompatActivity(), QuotesListFragment.quoteSnackbar {
 
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -33,8 +34,8 @@ class MainActivity : AppCompatActivity(), QuotesListFragment.quoteToast {
         val bottomNavigationView = binding.bottomNavigation
         bottomNavigationView.setupWithNavController(navController)
 
-        toolBar.setOnMenuItemClickListener{
-            when(it.itemId){
+        toolBar.setOnMenuItemClickListener {
+            when (it.itemId) {
                 R.id.action_profile -> {
                     navController.navigate(R.id.settingsFragment)
                     true
@@ -76,13 +77,7 @@ class MainActivity : AppCompatActivity(), QuotesListFragment.quoteToast {
     }
 
 
-    override fun showToast(message: String) {
-//        Toast.makeText(
-//            binding.container.context,
-//            message,
-//            Toast.LENGTH_SHORT
-//        ).show()
-        
+    override fun quoteSnackbar(message: String) {
         Snackbar.make(
             binding.container,
             message,
