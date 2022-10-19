@@ -10,5 +10,5 @@ data class QuoteResponse(
     @Json(name = "author")
     val author: String,
 
-    var isSaved: QuoteState = QuoteState.UNKNOWN
+    var isSaved: QuoteState = QuoteState.NOT_SAVED
 )

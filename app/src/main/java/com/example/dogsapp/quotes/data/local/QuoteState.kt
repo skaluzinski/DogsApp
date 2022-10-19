@@ -1,5 +1,5 @@
 package com.example.dogsapp.quotes.data.local
 
 enum class QuoteState {
-    SAVED,NOT_SAVED,UNKNOWN
+    SAVED,NOT_SAVED
 }

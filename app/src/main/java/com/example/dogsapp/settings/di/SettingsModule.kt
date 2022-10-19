@@ -19,7 +19,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object SettingsModule {
 
-
     @Provides
     @Singleton
     fun provideSettingsQuotesDao(settingsQuotesDatabase: AppDatabase): ISettingsQuotesDao {
@@ -29,7 +28,7 @@ object SettingsModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class AbstractSettingModule {
+abstract class AbstractSettingsModule {
 
     @Binds
     @Singleton
