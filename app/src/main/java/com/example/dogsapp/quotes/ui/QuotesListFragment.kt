@@ -70,10 +70,14 @@ class QuotesListFragment : Fragment() {
 
     //Todo change current way to reactive state paradigm with accordance
     //https://www.youtube.com/watch?v=PH9_FjiiZvo 37:30
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun saveQuote(quoteResponse: QuoteResponse) = quoteViewModel.saveQuote(quoteResponse)
 
-    private fun deleteQuote(quoteResponse: QuoteResponse) = quoteViewModel.deleteQuote(quoteResponse)
+    private fun deleteQuote(quoteResponse: QuoteResponse) =
+        quoteViewModel.deleteQuote(quoteResponse)
 
 }

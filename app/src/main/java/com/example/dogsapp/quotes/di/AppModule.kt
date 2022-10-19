@@ -7,6 +7,7 @@ import com.example.dogsapp.dogs.di.IoDispatcher
 import com.example.dogsapp.quotes.data.QuotesRepository
 import com.example.dogsapp.quotes.data.AppDatabase
 import com.example.dogsapp.quotes.data.local.SavedQuotesDao
+import com.example.dogsapp.quotes.data.remote.HeaderInterceptor
 import com.example.dogsapp.quotes.data.remote.IQuotesRemoteDataSource
 import com.example.dogsapp.quotes.data.remote.QuotesApi
 import com.example.dogsapp.quotes.data.remote.QuotesRemoteDataSource
