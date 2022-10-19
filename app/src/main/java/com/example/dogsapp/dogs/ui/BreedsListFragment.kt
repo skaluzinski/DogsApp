@@ -31,7 +31,6 @@ class BreedsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val fragmentBinding = BreedsListFragmentBinding.inflate(inflater, container, false)
-        fragmentBinding.lifecycleOwner = viewLifecycleOwner
 
         _binding = fragmentBinding
         return fragmentBinding.root
@@ -39,7 +38,6 @@ class BreedsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = sharedViewModel
         recyclerView = binding.breedsListRv
         val breedsListAdapter = BreedsListAdapter(
             {

@@ -48,7 +48,7 @@ class SingleBreedPhotos : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewModel = sharedViewModel
+        //binding.viewModel = sharedViewModel
         recyclerView = binding.breedPhotosRv
         val singleBreedAdapter = SingleBreedAdapter(breedName, ::loadImage, ::saveImage)
         recyclerView.adapter = singleBreedAdapter
