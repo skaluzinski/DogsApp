@@ -13,20 +13,20 @@ class QuotesRepository @Inject constructor(
     private val savedQuotesLocalDataSource: SavedQuotesDao,
     private val quotesRemoteDataSource: IQuotesRemoteDataSource,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
-) {
-    suspend fun fetchAllQuotes() = quotesRemoteDataSource.getAllQuotes()
+) : IQuotesRepository {
+    override suspend fun fetchAllQuotes() = quotesRemoteDataSource.getAllQuotes()
 
-    suspend fun fetchSingleQuote() = quotesRemoteDataSource.getRandomQuote()
+    override suspend fun fetchSingleQuote() = quotesRemoteDataSource.getRandomQuote()
 
-    suspend fun fetchSavedQuotes() = savedQuotesLocalDataSource.getSavedQuotes()
+    override suspend fun fetchSavedQuotes() = savedQuotesLocalDataSource.getSavedQuotes()
 
-    fun getIdOfQuote(quoteResponse: QuoteResponse) =
+    override fun getIdOfQuote(quoteResponse: QuoteResponse) =
         savedQuotesLocalDataSource.getIdOfQuote(
             authorToFind = quoteResponse.author,
             quoteToFind = quoteResponse.quote
         )
 
-    suspend fun saveQuote(quoteResponse: QuoteResponse) {
+    override suspend fun saveQuote(quoteResponse: QuoteResponse) {
         savedQuotesLocalDataSource.saveQuote(
             SavedQuotes(
                 author = quoteResponse.author,
@@ -35,12 +35,12 @@ class QuotesRepository @Inject constructor(
         )
     }
 
-    suspend fun checkIfQuoteIsSaved(quoteResponse: QuoteResponse): Boolean =
+    override suspend fun checkIfQuoteIsSaved(quoteResponse: QuoteResponse): Boolean =
         withContext(defaultDispatcher) {
             savedQuotesLocalDataSource.checkIfSaved(quoteResponse.author, quoteResponse.quote)
         }
 
-    suspend fun deleteQuote(quoteResponse: QuoteResponse) = withContext(defaultDispatcher) {
+    override suspend fun deleteQuote(quoteResponse: QuoteResponse) = withContext(defaultDispatcher) {
         savedQuotesLocalDataSource.deleteQuote(
             SavedQuotes(
                 id = getIdOfQuote(quoteResponse),
