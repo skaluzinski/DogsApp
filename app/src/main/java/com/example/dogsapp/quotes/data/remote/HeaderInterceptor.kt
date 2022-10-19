@@ -1,4 +1,4 @@
-package com.example.dogsapp.quotes.di
+package com.example.dogsapp.quotes.data.remote
 
 import okhttp3.Interceptor
 import okhttp3.Request

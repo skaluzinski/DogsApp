@@ -2,7 +2,6 @@ package com.example.dogsapp.dogs.ui
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,13 +10,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogsapp.databinding.SingleBreedItemBinding
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 
 class SingleBreedAdapter(
     private val breedName: String,
     private val imageLoadingFunction: (ImageView, String) -> Unit,
     private val imageSavingFunction: (Bitmap, Context, String) -> Unit,
+    private val dogPhotoMessage: (String) -> Unit
 ) :
     ListAdapter<String,
             SingleBreedAdapter.SingleBreedViewHolder>
@@ -42,39 +40,13 @@ class SingleBreedAdapter(
             link: String,
             breedName: String,
             loadImage: (ImageView, String) -> Unit,
-            saveImage: (Bitmap, Context, String) -> Unit
+            saveImage: (Bitmap, Context, String) -> Unit,
+            dogPhotoMessage: (String) -> Unit
         ) {
-            var snackbar: Snackbar? = null
-            var count = 0
             loadImage(binding.photo, link)
             binding.photo.setOnLongClickListener {
                 val bitmap = binding.photo.drawable.toBitmap()
-
-                if (snackbar == null) {
-                    snackbar = Snackbar.make(
-                        binding.root,
-                        "You downloaded image of $breedName",
-                        Snackbar.LENGTH_SHORT
-                    )
-                    snackbar!!.show()
-                    count++
-                } else if (snackbar!!.isShown) {
-                    snackbar = Snackbar.make(
-                        binding.root,
-                        "You downloaded $count images.",
-                        Snackbar.LENGTH_SHORT
-                    )
-                    snackbar!!.show()
-                    count++
-                } else {
-                    snackbar = Snackbar.make(
-                        binding.root,
-                        "You downloaded image of $breedName",
-                        Snackbar.LENGTH_SHORT
-                    )
-                    snackbar!!.show()
-                    count = 0
-                }
+                dogPhotoMessage(breedName)
                 saveImage(bitmap, binding.root.context, "dogPhotos/$breedName")
                 return@setOnLongClickListener true
             }
@@ -93,6 +65,12 @@ class SingleBreedAdapter(
     }
 
     override fun onBindViewHolder(holder: SingleBreedViewHolder, position: Int) {
-        holder.bind(getItem(position), holder.breed, imageLoadingFunction, imageSavingFunction)
+        holder.bind(
+            getItem(position),
+            holder.breed,
+            imageLoadingFunction,
+            imageSavingFunction,
+            dogPhotoMessage
+        )
     }
 }

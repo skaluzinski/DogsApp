@@ -2,31 +2,30 @@ package com.example.dogsapp
 
 import android.os.Bundle
 import android.view.Menu
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.dogsapp.databinding.ActivityMainBinding
+import com.example.dogsapp.dogs.ui.SingleBreedPhotos
 import com.example.dogsapp.quotes.ui.QuotesListFragment
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragment.quoteToast {
+class MainActivity : AppCompatActivity(), QuotesListFragment.quoteSnackbar,
+    SingleBreedPhotos.showDogSnackbar {
 
-    private var notificationCount: Int = 0
-
-    private lateinit var currentToast: Toast
     private lateinit var navController: NavController
-    lateinit var binding: ActivityMainBinding
+    private var currentSnackbar: Snackbar? = null
+    private var currentSnackbarCount = 1
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -34,14 +33,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragme
                 R.id.quotesFragment
             )
         )
-        val toolBar = findViewById<MaterialToolbar>(R.id.topAppBar)
+        val toolBar = binding.topAppBar
         toolBar.setupWithNavController(navController, appBarConfiguration)
-        val bottomNavigationView: BottomNavigationView =
-            findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val bottomNavigationView = binding.bottomNavigation
         bottomNavigationView.setupWithNavController(navController)
 
-        toolBar.setOnMenuItemClickListener{
-            when(it.itemId){
+        toolBar.setOnMenuItemClickListener {
+            when (it.itemId) {
                 R.id.action_profile -> {
                     navController.navigate(R.id.settingsFragment)
                     true
@@ -70,6 +68,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragme
             }
         }
 
+        setContentView(binding.root)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -81,20 +81,34 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), QuotesListFragme
     }
 
 
-    override fun showToast(message: String) {
-        Toast.makeText(
-            binding.container.context,
+    override fun quoteSnackbar(message: String) {
+        Snackbar.make(
+            binding.container,
             message,
-            Toast.LENGTH_SHORT
-        ).show()
-
-//          TODO Rewrite Toast to snackbar
-//        Snackbar.make(
-//            binding.container.context,
-//            binding.bottomNavigation,
-//            "sss",
-//            Snackbar.LENGTH_SHORT
-//        ).setAnchorView(binding.bottomNavigation)
-//            .show()
+            Snackbar.LENGTH_SHORT
+        ).setAnchorView(binding.bottomNavigation)
+            .show()
     }
+
+    override fun showDogSnackbar(breedName: String) {
+        if (currentSnackbar?.isShown == true) {
+            currentSnackbarCount++
+            currentSnackbar = Snackbar.make(
+                binding.container,
+                "You downloaded $currentSnackbarCount images.",
+                Snackbar.LENGTH_SHORT
+            ).setAnchorView(binding.bottomNavigation)
+            currentSnackbar!!.show()
+        } else {
+            currentSnackbarCount = 1
+            currentSnackbar = Snackbar.make(
+                binding.container,
+                "You downloaded image of $breedName.",
+                Snackbar.LENGTH_SHORT
+            ).setAnchorView(binding.bottomNavigation)
+            currentSnackbar!!.show()
+        }
+    }
+
+
 }
