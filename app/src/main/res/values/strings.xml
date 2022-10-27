@@ -11,4 +11,8 @@
     <string name="example_author">-Scoot Adams</string>
     <string name="delete_quotes_string">Delete locally saved quotes.</string>
     <string name="change_theme_string">Change theme of your app.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="configure">Configure</string>
 </resources>
