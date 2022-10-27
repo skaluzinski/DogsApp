@@ -84,4 +84,8 @@
             android:id="@+id/action_settingsFragment_to_dogsFragment"
             app:destination="@id/dogsFragment" />
     </fragment>
+    <activity
+        android:id="@+id/newAppWidgetConfigureActivity"
+        android:name="com.example.dogsapp.widgets.NewAppWidgetConfigureActivity"
+        android:label="NewAppWidgetConfigureActivity" />
 </navigation>

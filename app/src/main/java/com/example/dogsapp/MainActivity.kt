@@ -1,5 +1,6 @@
 package com.example.dogsapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.dogsapp.databinding.ActivityMainBinding
 import com.example.dogsapp.dogs.ui.SingleBreedPhotos
 import com.example.dogsapp.quotes.ui.QuotesListFragment
+import com.example.dogsapp.widgets.NewAppWidgetConfigureActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,8 +57,7 @@ class MainActivity : AppCompatActivity(), QuotesListFragment.quoteSnackbar,
                     true
                 }
                 R.id.widgets_page -> {
-                    //navController.navigate()
-                    true
+                    false
                 }
                 R.id.quotes_page -> {
                     navController.navigate(R.id.quotesFragment)
