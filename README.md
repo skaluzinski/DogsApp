@@ -21,6 +21,10 @@ Possible upgrades:
 
 Todo:
 =
+- use runCatching in repositories with kotlin.Result
+- delete bloated useCases
+- resolve N+1 problem of api Calls
+- find out whether it makes sense to inject dispatchers into useCases
 - TESTS
 - checking internet connection to not crash while it's absent :)
 - change one-show flow to suspend fun
