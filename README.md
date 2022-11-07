@@ -46,5 +46,5 @@ Todo:
 
 Contact:
 =
- -discord: Sebastian#2226
- -email: skaluzinski1801@gmail.com
+ - discord: Sebastian#2226
+ - email: skaluzinski1801@gmail.com
