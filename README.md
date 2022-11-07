@@ -18,9 +18,11 @@ Possible upgrades:
 - using share preferences to save previous theme
 - use of caching to not do the same API call needlessly 
 - change of returned value of repos to catch errors in a better way
+- sharing of quotes and images (via intents possibly - To Be Done)
 
 Todo:
 =
+- move _binding = null from onDestroy to onDestroyView
 - use runCatching in repositories with kotlin.Result
 - delete bloated useCases
 - resolve N+1 problem of api Calls
