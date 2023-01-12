@@ -19,7 +19,7 @@ Possible upgrades:
 - use of caching to not do the same API call needlessly 
 - change of returned value of repos to catch errors in a better way
 - sharing of quotes and images (via intents possibly - To Be Done)
-
+- add images to readme
 Todo:
 =
 - move _binding = null from onDestroy to onDestroyView
